@@ -1,34 +1,32 @@
-angular.module('farol-api').controller('ContatoController',
-	function($scope, $routeParams, Contato) {
+angular.module('farol-api').controller('RequireController',
+	function($scope, $routeParams, UserRequire) {
 		
-		if($routeParams.contatoId){	
-			Contato.get({id: $routeParams.contatoId},
-				function(contato) {
-					$scope.contato = contato;
+		if($routeParams.requireId){	
+			UserRequire.get({id: $routeParams.requireId},
+				function(require) {
+					$scope.require = require;
 				},
 				function(erro) {
-					$scope.mensagem = { texto: 'Contato inexistente. Novo contato.'};
+					$scope.mensagem = { texto: 'Veículo sem sinal.'};
 					console.log(erro);
 				}
 			);
-		}else{
-			$scope.contato = new Contato();
 		};
 		
 		$scope.salva = function (){
-			$scope.contato.$save()
+			$scope.require.$save()
 				.then(function() {
 					$scope.mensagem = {texto: 'Salvo com sucesso'};
-					$scope.contato = new Contato();
+					$scope.require = new UserRequire();
 				})
 				.catch(function(erro){
 					$scope.mensagem = {texto: 'Não foi possível salvar'};
 				});
 				
 		};
-		
-		Contato.query(function(contatos){
-			$scope.contatos = contatos;
+		//tenho que rever essa última parte
+		UserRequire.query(function(requires){
+			$scope.requires = requires;
 		});
 	}
 );

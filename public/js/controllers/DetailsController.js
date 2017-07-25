@@ -1,7 +1,5 @@
 angular.module('farol-api').controller('DetailsController',
 	function($scope, $routeParams, Details) {
-		
-		function($scope, $routeParams, BusList){
 		if($routeParams.busId){
 			Bus.get({id: $routeParams.busId},
 				function(bus) {
