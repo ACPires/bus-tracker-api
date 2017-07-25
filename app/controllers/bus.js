@@ -6,7 +6,7 @@ module.exports = function(app) {
 	
 	controller.busList = function(req, res){
 		var _id = req.params.busstopId;
-		var promise = Buslist.bus.findById(_id).exec()
+		var promise = Buslist.Bus.findById(_id).populate('busLine').exec()
 			.then(
 				function(busList){
 					res.json(busList);

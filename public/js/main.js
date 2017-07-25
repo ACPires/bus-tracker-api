@@ -1,7 +1,7 @@
 angular.module('farol-api',['ngRoute', 'ngResource'])
 	.config(function($routeProvider) {
-		$routeProvider.when('/busstop/:busstopId/bus', {
-			templateUrl: 'partials/buslist.html',
+		$routeProvider.when('/busstop/:busstopId', {
+			templateUrl: 'partials/bus.html',
 			controller: 'BusListController'
 		});
 		$routeProvider.when('/bus/:busId/details', {
@@ -17,5 +17,5 @@ angular.module('farol-api',['ngRoute', 'ngResource'])
 			controller: 'RequireController'
 		});
 		
-		//$routeProvider.otherwise({redirectTo: '/search'});
+		$routeProvider.otherwise({redirectTo: '/busstop/597652f08677712533d3f463'});
 	});

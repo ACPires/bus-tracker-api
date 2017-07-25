@@ -16,7 +16,10 @@ module.exports = function(){
 	var busline = mongoose.Schema({
 		busLine: {
 			type: String,
-			required: true
+			required: true,
+			index: {
+				unique: true
+			}
 		}
 	});
 	
