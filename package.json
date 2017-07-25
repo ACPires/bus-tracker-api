@@ -1,0 +1,30 @@
+{
+  "name": "farol-api",
+  "version": "1.0.0",
+  "description": "API MEAN Stack para aplicativo de espera de ônibus para deficientes visuais",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://acicuto@bitbucket.org/victorvct/tcc-api.git"
+  },
+  "keywords": [
+    "TCC",
+    "API",
+    "transporte",
+    "público"
+  ],
+  "author": "Arthur",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/victorvct/tcc-api#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.8.8",
+    "express-load": "^1.1.16",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.11.1",
+    "mongoose-geojson-schema": "^2.1.2"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "farol-api",
+  "description": "API MEAN Stack para aplicativo de espera de ônibus para deficientes visuais",
+  "main": "index.js",
+  "authors": [
+    "Arthur"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "TCC",
+    "API",
+    "transporte",
+    "público"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "angular-route": "^1.6.5",
+    "angular-resource": "^1.6.5",
+    "bootstrap": "^3.3.7"
+  }
+}
