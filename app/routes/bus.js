@@ -1,7 +1,7 @@
 module.exports = function(app) {
 	var controller = app.controllers.bus;
 	
-	app.route('/busstop/:busstopId')
+	app.route('/busstop/:busstopId/bus')
 		.get(controller.busList);
 	app.route('/bus/:busId/details')
 		.get(controller.busDetails);

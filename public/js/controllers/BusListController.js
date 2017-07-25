@@ -1,7 +1,7 @@
 angular.module('farol-api').controller('BusListController', 
 	function($scope, $routeParams, BusList){
 		if($routeParams.busstopId){
-			BusStop.query({busStop: $routeParams.busstopId},
+			BusList.query({busStop: $routeParams.busstopId},
 				function(busstop) {
 					$scope.busstop = busstop;
 				},
