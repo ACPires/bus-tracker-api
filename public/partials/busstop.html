@@ -1,0 +1,31 @@
+<h1 class="text-center">Bus stop register</h1>
+<p ng-show="mensagem.texto">
+	{{mensagem.texto}}
+</p>
+<form ng-submit="salva()">
+	<div class="form-group">
+		<label for="busStop">Descrição</label>
+		<input type="text" class="form-control" id="busStop" name="busStop" required ng-model="busstop.description">
+	</div>
+	
+	<div class="form-group">
+		<label for="address">Endereço</label>
+		<input type="text" class="form-control" id="address" name="address" required ng-model="busstop.address">
+	</div>
+	
+	<div class="form-group">
+		<label for="latlong">Coordenadas</label>
+		<input type="text" class="form-control" id="latlong" name="latlong" required ng-model="busstop.latlong">
+	</div>
+	
+	<div>
+		<button type="submit" class="btn btn-primary">
+			Salvar
+		</button>
+		<a href="#!/busterminal" class="btn btn-default">Voltar</a>
+	</div>
+</form>
+
+
+
+<!-- -46.54838562011719,-23.69119965004867 -->

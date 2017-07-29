@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var connection;
 
 module.exports = function(uri){
 	mongoose.set('debug', true);
@@ -24,3 +25,6 @@ module.exports = function(uri){
 		});
 	});
 };
+
+
+	

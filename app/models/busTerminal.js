@@ -2,16 +2,16 @@ var mongoose = require('mongoose');
 
 module.exports = function(){
 	
-	const busline = mongoose.Schema({
-		busLine: {
+	const busterminal = mongoose.Schema({
+		name: {
 			type: String,
 			required: true,
 			index: {
 				unique: true
 			}
 		}
-	}, { collection: 'busline'});
+	}, { collection: 'busterminal'});
 
-	return mongoose.model('BusLine', busline);
-	
+	return mongoose.model('BusTerminal', busterminal);
+
 };

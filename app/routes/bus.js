@@ -12,5 +12,8 @@ module.exports = function(app) {
 		// .get(controller.waitingTime);
 	app.route('/busLine')
 		.post(controller.addLine);
-		
+	app.route('/busterminal')
+		.post(controller.addTerminal);
+	app.route('/busstop')
+		.post(controller.addStop);
 };
