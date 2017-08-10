@@ -7,7 +7,7 @@ angular.module('farol-api').controller('BusLineController',
 					$scope.busLine = busline;
 				},
 				function(erro) {
-					$scope.mensagem = { texto: 'Contato inexistente. Novo contato.'};
+					$scope.mensagem = { texto: 'Linha inexistente. Nova linhas.'};
 					console.log(erro);
 				}
 			);

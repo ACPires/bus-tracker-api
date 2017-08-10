@@ -11,10 +11,7 @@ module.exports = function(){
 		latlong:{
 			type: mongoose.Schema.Types.Point,
 			required: true,
-			geometry: {
-				"type": "Point",
-				"coordinates": [ Number ]
-			}
+			coordinates: [ Number ]
 		},
 		speed: {
 			type: Number,

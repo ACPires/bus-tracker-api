@@ -12,7 +12,7 @@ angular.module('farol-api').controller('BusStopController',
 				}
 			);
 		}else{
-			$scope.busStop = new BusStop();
+			$scope.busstop = new BusStop();
 		};		
 		
 		$scope.salva = function (){

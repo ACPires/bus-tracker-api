@@ -36,7 +36,7 @@ module.exports = function(app) {
 	controller.addStop = function(req, res){
 		BusStop.create(req.body)
 			.then(
-				function(busStop){
+				function(busstop){
 					console.log("Parada cadastrada");
 				},
 				function(erro){

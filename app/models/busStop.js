@@ -1,4 +1,3 @@
-var GeoJSON = require('mongoose-geojson-schema');
 var mongoose = require('mongoose');
 
 module.exports = function(){
@@ -16,13 +15,8 @@ module.exports = function(){
 			required: true
 		},
 		latlong: {
-			type: mongoose.Schema.Types.Point,
-			required: true,
-			geometry: {
-				"type": "Point",
-				"coordinates": [ Number ]
-			},
-
+			type: [Number],
+			required: true
 		}
 	}, { collection: 'busstop'});
 
