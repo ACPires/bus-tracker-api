@@ -14,8 +14,12 @@ module.exports = function(){
 			type: String,
 			required: true
 		},
-		latlong: {
-			type: [Number],
+		latitude: {
+			type: Number,
+			required: true
+		},
+		longitude: {
+			type: Number,
 			required: true
 		}
 	}, { collection: 'busstop'});

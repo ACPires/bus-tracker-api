@@ -12,12 +12,17 @@
 		<label for="address">Endereço</label>
 		<input type="text" class="form-control" id="address" name="address" required ng-model="busstop.address">
 	</div>
-	
+
 	<div class="form-group">
-		<label for="latlong">Coordenadas</label>
-		<input type="text" class="form-control" id="latlong" name="latlong" value="Latitude" required ng-model="busstop.latlong">
+		<label for="latitude">Latitude</label>
+		<input type="text" class="form-control" id="latitude" name="latitude" required ng-model="busstop.latitude">
 	</div>
 	
+	<div class="form-group">
+		<label for="longitude">Longitude</label>
+		<input type="text" class="form-control" id="longitude" name="longitude" required ng-model="busstop.longitude">
+	</div>
+		
 	<div>
 		<button type="submit" class="btn btn-primary">
 			Salvar
@@ -26,11 +31,14 @@
 	</div>
 </form>
 
-
-
 <!-- 
 Dados teste para inclusão:
 Parada Baeta Neves
 -46.54838562011719,-23.69119965004867 
 Baeta Neves, São Bernardo do Campo - SP, 09635-010
+
+
+Parada Getúlio Vargas
+-46.5484015, -23.691379
+Baeta Neves, São Bernardo do Campo - SP, 09751-020
 -->
