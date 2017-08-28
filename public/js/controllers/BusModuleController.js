@@ -1,7 +1,7 @@
 angular.module('farol-api').controller('BusModuleController',
 	function($scope, $routeParams, BusModule) {
-		console.log($routeParams.moduleId);
-		BusModule.get({id: $routeParams.moduleId},
+		console.log($routeParams.id);
+		BusModule.get({id: $routeParams.id},
 			function(busmodule) {
 				$scope.busmodule = busmodule;
 			},

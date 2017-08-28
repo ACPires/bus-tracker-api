@@ -21,7 +21,6 @@ angular.module('farol-api').controller('ListTerminalsController', function($scop
 	listTerminals();
 	
 	$scope.remove = function(busterminal) {
-		console.log('on class listterminalscontroller: ' + busterminal._id);
 		BusTerminal.delete({id: busterminal._id}, 
 			listTerminals(), 
 			function(erro){	

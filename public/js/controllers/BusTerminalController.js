@@ -1,8 +1,8 @@
 angular.module('farol-api').controller('BusTerminalController',
 	function($scope, BusTerminal, $routeParams){
 		
-		if($routeParams.lineId){	
-			BusTerminal.get({id: $routeParams.terminalId},
+		if($routeParams.id){	
+			BusTerminal.get({id: $routeParams.id},
 				function(busterminal) {
 					$scope.busTerminal = busterminal;
 				},
@@ -16,7 +16,6 @@ angular.module('farol-api').controller('BusTerminalController',
 		};		
 		
 		$scope.salva = function (){
-			console.log("chegou aqui");
 			$scope.busterminal.$save()
 				.then(function() {
 					$scope.mensagem = {texto: 'Salvo com sucesso'};

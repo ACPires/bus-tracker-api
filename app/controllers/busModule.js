@@ -6,12 +6,12 @@ module.exports = function(app) {
 	
 	controller.getModule = function(req, res){
 		var _id = req.params.id;
-		console.log(_id);
+		
 		BusModule.findById(_id).exec()
 			.then(
-				function(busModule){
-					if(!busModule) throw new Error("Módulo não cadastrado");
-					res.json(busModule);
+				function(busmodule){
+					if(!busmodule) throw new Error("Módulo não cadastrado");
+					res.json(busmodule);
 				},
 				function(erro){
 					console.log(erro);
@@ -23,3 +23,11 @@ module.exports = function(app) {
 	return controller;
 
 };
+
+/*
+ObjectId("59a31d1fe34a770cbe9e4515") bus
+
+ObjectId("599f5c9a2e9ecf18e0419fb8") busstop
+
+ObjectId("59a470cb49f176e2eb8a995b") busmodule
+*/

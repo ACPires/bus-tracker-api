@@ -19,6 +19,7 @@ module.exports = function(app) {
 
 	controller.getTerminal = function(req, res){
 		var _id = req.params.id;
+		//findById is not working as needed
 		BusTerminal.findById(_id).exec()
 			.then(
 				function(busTerminal){
@@ -34,7 +35,8 @@ module.exports = function(app) {
 
 	controller.addTerminal = function(req, res){
 		var _id = req.body._id;
-		
+		//update is not working
+		//it has the parameter needed in the link, but is somehow, unable to get the parameter
 		if(_id){
 			BusTerminal.findByIdAndUpdate(_id, req.body).exec()
 				.then(
