@@ -1,5 +1,3 @@
-module.exports = function(app) {
-	var controller = app.controllers.bus;
 	
 	//app.route('/busstop/:busstopId/bus')
 		
@@ -11,10 +9,3 @@ module.exports = function(app) {
 		// .post(controller.userRequire);
 	// app.route('/bus/:requireId')
 		// .get(controller.waitingTime);
-	app.route('/busLine')
-		.post(controller.addLine);
-	app.route('/busterminal')
-		.post(controller.addTerminal);
-	app.route('/busstop')
-		.post(controller.addStop);
-};

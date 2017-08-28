@@ -24,7 +24,9 @@
     "express": "^4.8.8",
     "express-load": "^1.1.16",
     "method-override": "^2.3.9",
+    "mongodb-promise": "0.0.4",
     "mongoose": "^4.11.1",
-    "mongoose-geojson-schema": "^2.1.2"
+    "mongoose-geojson-schema": "^2.1.2",
+    "mpromise": "^0.5.5"
   }
 }

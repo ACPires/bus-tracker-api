@@ -1,3 +1,3 @@
 angular.module('farol-api').factory('BusTerminal', function($resource){
-	return $resource('/busterminal');
+	return $resource('/busterminal/:id');
 });

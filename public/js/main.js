@@ -11,12 +11,27 @@ angular.module('farol-api',['ngRoute', 'ngResource'])
 			controller: 'BusTerminalController'
 		});
 		
+		$routeProvider.when('/busterminal/:id', {
+			templateUrl: 'partials/busterminal.html',
+			controller: 'BusTerminalController'
+		});
+		
 		$routeProvider.when('/busstop', {
 			templateUrl: 'partials/busstop.html',
 			controller: 'BusStopController'
 		});
 		
-		$routeProvider.otherwise({redirectTo: '/busstop'});
+		$routeProvider.when('/listterminals', {
+			templateUrl: 'partials/listterminals.html',
+			controller: 'ListTerminalsController'
+		});
+		
+		$routeProvider.when('/busmodule/:id/settings', {
+			templateUrl: 'partials/busmodule.html',
+			controller: 'BusModuleController'
+		});
+		
+		$routeProvider.otherwise({redirectTo: '/listterminals'});
 	});
 	
 		// $routeProvider.when('/busstop/:busstopId/bus', {

@@ -1,4 +1,3 @@
-var GeoJSON = require('mongoose-geojson-schema');
 var mongoose = require('mongoose');
 
 module.exports = function(){	
@@ -14,7 +13,15 @@ module.exports = function(){
 		position: {
 			type: Number,
 			required: true
-		}
+		},
+		latitude: {
+			type: Number,
+			required: true
+		},
+		longitude: {
+			type: Number,
+			required:true
+		},
 	}, { collection: 'routestop'});
 
 	return mongoose.model('RouteStop', routestop);

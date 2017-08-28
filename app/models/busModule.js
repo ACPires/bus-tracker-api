@@ -8,16 +8,17 @@ module.exports = function(){
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Bus'
 		},
-		latlong:{
-			type: mongoose.Schema.Types.Point,
-			required: true,
-			coordinates: [ Number ]
+		latitude:{
+			type: Number
+		},
+		longitude:{
+			type: Number
 		},
 		speed: {
 			type: Number,
 			required: true
 		},
-		last_read: {
+		lastRead: {
 			type: Date,
 			required: true
 		},
