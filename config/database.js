@@ -1,15 +1,9 @@
 var mongoose = require('mongoose');
 
-var options = { 
-	db: { native_parser: true },  
-	user: 'megatron',
-	pass: 'megatron500'
-}
-
-module.exports = function(uri, options){
+module.exports = function(uri){
 	mongoose.set('debug', true);
 	
-	mongoose.connect(uri, options);
+	mongoose.connect(uri);
 	
 	mongoose.connection.on('connected', function(){
 		console.log('Mongoose! Conectado em '+uri);
