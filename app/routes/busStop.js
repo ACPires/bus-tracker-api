@@ -4,5 +4,7 @@ module.exports = function(app) {
 
 	app.route('/busstop')
 		.post(controller.addStop);
+	app.route('/busstop/:id/bus')
+		.get(controller.listBus);
 		
 };

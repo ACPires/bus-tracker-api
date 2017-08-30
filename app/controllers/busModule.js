@@ -20,6 +20,25 @@ module.exports = function(app) {
 			);
 	};
 	
+	controller.updatePosition = function(req, res){
+		var _id = req.params.id;
+		
+		if(_id){
+			//preciso analisar melhor esse aqui para atualizar observando o id do ônibus e não o id do módulo
+			//talvez tenha algum outro modo
+			BusModule.findByIdAndUpdate(_id, req.body).exec()
+				.then(
+					function(busmodule){
+						res.json(busmodule);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+					}
+				);
+		}
+	};
+	
 	return controller;
 
 };

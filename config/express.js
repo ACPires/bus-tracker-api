@@ -5,9 +5,9 @@ var bodyParser = require('body-parser');
 module.exports = function() {
 	
 	var app = express();
-	
+	var port = process.env.PORT || 3000;
 	//variável de ambiente
-	app.set('port', 3000);
+	app.set('port', port);
 	//middlewares
 	app.use(express.static('./public'));
 	app.set('views', './app/views');
