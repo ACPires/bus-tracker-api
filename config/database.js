@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
 
-var options = { db: { native_parser: true }  
-  , server: { poolSize: 5 }
-  , replset: { rs_name: 'myReplicaSetName' }
-  , user: 'megatron'
-  , pass: 'megatron500'
+var options = { 
+	db: { native_parser: true },  
+	user: 'megatron',
+	pass: 'megatron500'
 }
 
 module.exports = function(uri, options){
