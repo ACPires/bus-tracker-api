@@ -1,9 +1,16 @@
 var mongoose = require('mongoose');
 
-module.exports = function(uri){
+var options = { db: { native_parser: true }  
+  , server: { poolSize: 5 }
+  , replset: { rs_name: 'myReplicaSetName' }
+  , user: 'megatron'
+  , pass: 'megatron500'
+}
+
+module.exports = function(uri, options){
 	mongoose.set('debug', true);
 	
-	mongoose.connect(uri);
+	mongoose.connect(uri, options);
 	
 	mongoose.connection.on('connected', function(){
 		console.log('Mongoose! Conectado em '+uri);
