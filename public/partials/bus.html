@@ -1,0 +1,22 @@
+	<h1 class="text-center">Bus register</h1>
+<p ng-show="mensagem.texto">
+	{{mensagem.texto}}
+</p>
+<form ng-submit="salva()">
+	<div class="form-group">
+		<label for="serial">ID do ônibus</label>
+		<input type="text" class="form-control" id="serial" name="serial" required ng-model="bus.serial">
+	</div>
+	
+	<div class="form-group">
+		<label for="busLine">Linha</label>
+		<input type="text" class="form-control" id="busLine" name="busLine" required ng-model="bus.busLine">
+	</div>
+	
+	<div>
+		<button type="submit" class="btn btn-primary">
+			Salvar
+		</button>
+		<a href="#!/bus" class="btn btn-default">Voltar</a>
+	</div>
+</form>
