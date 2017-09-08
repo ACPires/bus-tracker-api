@@ -33,6 +33,20 @@ module.exports = function(app) {
 			);				
 	}
 	
+	controller.listBusStops = function(req, res){
+		var promise = BusStop.find().exec()
+			.then(
+				function(busstop){					
+					res.json(busstop);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(500).json(erro);
+				}
+			);
+	};	
+	
+	
 	return controller;
 	
 };

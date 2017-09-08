@@ -1,6 +1,8 @@
 angular.module('farol-api').controller('BusStopController',
 	function($scope, BusStop, $routeParams){
 		
+		console.log("Init Controller BusStop");
+		
 		if($routeParams.id){	
 			BusStop.get({id: $routeParams.id},
 				function(busstop) {
@@ -26,5 +28,23 @@ angular.module('farol-api').controller('BusStopController',
 				});
 				
 		};
+		
+		$scope.busstop = [];
+		
+		function listBusStops() {			
+			BusStop.query(
+				function(busstop) {
+					$scope.busstop = busstop;
+				},
+				function(erro) {
+					console.log(erro);
+					$scope.mensagem = {
+						texto: 'Não foi possível obter a lista de paradas.'
+						};
+				}
+			);
+		};
+		
+		listBusStops();
 	}
 );
