@@ -1,44 +1,47 @@
-<!--
-Configuração inicial do módulo da parada com coordenadas
--->
- 
 <h1 class="text-center">Busstop module register</h1>
 <p ng-show="mensagem.texto">
 	{{mensagem.texto}}
 </p>
-<form ng-submit="salva()">
+<!-- <form ng-submit="salva()"> -->
+<form>
 	<div class="form-group">
 		<label for="_id">ID do módulo</label>
 		<input type="text" class="form-control" id="_id" name="_id" required ng-model="busstopmodule._id">
 	</div>
 
 	<div class="form-group">
-		<label for="busStop">Parada</label>
-		<select id="busStop" class="form-control" 
-		ng-model="busstopmodule.busStop" <!-- aqui entra a lista -->
-		ng-change="setBusStop(busStop)"
+		<label for="busstop">Parada</label>
+		<select id="busstop" class="form-control" 
+		ng-model="busstopmodule.busStop"	
+		ng-change="setBusStop(busstopmodule.busStop)"
 		ng-options="busstop._id as busstop.description for busstop in busstop">
 		</select>
 	</div>
 
 	<div>
-		<button type="submit" class="btn btn-primary">
+		<button type="submit" class="btn btn-primary" ng-click="salva()">
 			Salvar
 		</button>
 		<a href="#!/busline" class="btn btn-default">Voltar</a>
 	</div>
 </form>
+<br/>
+<br/>	
 
+<p ng-show="stopmodules.length">Stop Modules cadastrados: {{stopmodules.length}}</p>
+<p class="text-info" ng-hide="stopmodules.length">
+	Não há paradas cadastrados
+</p>
 <div class="table-responsive">
 	<table class="table table-hover">
 		<tr>
 			<th>ID</th>
-			<th>Descrição</th>
+			<th>Parada</th>
 			<th class="text-center">Ação</th>
 		</tr>
-		<tr ng-repeat="busstopmodule in busstopmodule">
-			<td>{{busstopmodule._id}}</td>
-			<td>{{busstopmodule.busStop}}</td>
+		<tr ng-repeat="item in stopmodules">
+			<td>{{item._id}}</td>
+			<td>{{item.busStop}}</td>
 			<td class="text-center">
 				<button ng-click="" class="btn btn-warning">
 					Remover

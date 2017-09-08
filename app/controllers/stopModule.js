@@ -1,12 +1,13 @@
 module.exports = function(app) {
 
-	const StopModule = app.models.stopModule;
+
 	const BusStop = app.models.busStop;
+	const StopModule = app.models.stopModule;
 	
 	var controller = {};
 	
-	controller.listBusStop = function(req, res){
-		var promise = BusStop.find().exec()
+	controller.listBusStops = function(req, res){
+		BusStop.find().exec()
 			.then(
 				function(busStop){
 					console.log("oi");
@@ -19,14 +20,32 @@ module.exports = function(app) {
 			);
 	};	
 	
+		
+	
+	controller.listStopModules = function(req, res){
+		StopModule.find().populate({path:'busStop', select: 'description -_id'}).exec()
+			.then(
+				function(stopmodules){
+					console.log("oi");
+					res.json(stopmodules);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(500).json(erro);
+				}
+			);
+	};	
+	
+	
+	
 	controller.addStopModule = function(req, res){
 		var _id = req.body._id;
 		
 		if(_id){
 			StopModule.findByIdAndUpdate(_id, req.body).exec()
 				.then(
-					function(stopModule){
-						res.json(stopModule);
+					function(busstopmodule){
+						res.json(busstopmodule);
 					},
 					function(erro){
 						console.error(erro);
@@ -36,7 +55,7 @@ module.exports = function(app) {
 		}else{
 			StopModule.create(req.body)
 				.then(
-					function(stopModule){
+					function(busstopmodule){
 						console.log("Parada cadastrada");
 					},
 					function(erro){

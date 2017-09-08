@@ -29,7 +29,37 @@
 		</button>
 		<a href="#!/busterminal" class="btn btn-default">Voltar</a>
 	</div>
+
 </form>
+
+<br/>
+<br/>	
+<p ng-show="busstop.length">Bus cadastrados: {{busstop.length}}</p>
+<p class="text-info" ng-hide="busstop.length">
+	Não há terminais cadastrados
+</p>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Descrição</th>
+			<th>Endereço</th>
+			<th>Latitude</th>
+			<th>Longitude</th>
+		</tr>
+		<tr ng-repeat="busstop in busstop">
+			<td>{{busstop._id}}</td>
+			<td>{{busstop.description}}</td>
+			<td>{{busstop.address}}</td>
+			<td>{{busstop.latitude}}</td>
+			<td>{{busstop.longitude}}</td>
+		</tr>
+	</table>
+</div>
+
+
+
+
 
 <!-- 
 Dados teste para inclusão:

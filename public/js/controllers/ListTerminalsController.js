@@ -4,7 +4,7 @@ angular.module('farol-api').controller('ListTerminalsController', function($scop
 	
 	$scope.filtro='';
 
-	$scope.busterminal = []
+	$scope.busterminal = [];
 	
 	function listTerminals() {
 		BusTerminal.query(
