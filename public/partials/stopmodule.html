@@ -22,31 +22,9 @@
 		<button type="submit" class="btn btn-primary" ng-click="salva()">
 			Salvar
 		</button>
-		<a href="#!/busline" class="btn btn-default">Voltar</a>
+		<a href="#!/liststopmodules" class="btn btn-default">Voltar</a>
 	</div>
 </form>
 <br/>
 <br/>	
 
-<p ng-show="stopmodules.length">Stop Modules cadastrados: {{stopmodules.length}}</p>
-<p class="text-info" ng-hide="stopmodules.length">
-	Não há paradas cadastrados
-</p>
-<div class="table-responsive">
-	<table class="table table-hover">
-		<tr>
-			<th>ID</th>
-			<th>Parada</th>
-			<th class="text-center">Ação</th>
-		</tr>
-		<tr ng-repeat="item in stopmodules">
-			<td>{{item._id}}</td>
-			<td>{{item.busStop}}</td>
-			<td class="text-center">
-				<button ng-click="" class="btn btn-warning">
-					Remover
-				</button>
-			</td>
-		</tr>
-	</table>	
-</div>

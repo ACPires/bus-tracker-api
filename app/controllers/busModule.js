@@ -7,11 +7,15 @@ module.exports = function(app) {
 	controller.getModule = function(req, res){
 		var _id = req.params.id;
 		
-		BusModule.findById(_id).populate({path:'bus', select: 'serial -_id'}).populate({path: 'nextStop', select: 'description -_id'}).exec()
+		BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextStop', select: 'description -_id'}).exec()
 			.then(
 				function(busmodule){
 					if(!busmodule) throw new Error("Módulo não cadastrado");
-					res.json(busmodule);
+					else{
+						//res.json(busmodule);
+						//var settings = JSON.stringify({IdBusModule: busmodule._id, IdBus: busmodule.bus});
+						res.json({IdBusModule: busmodule._id, IdBus: busmodule.bus._id});
+					}
 				},
 				function(erro){
 					console.log(erro);

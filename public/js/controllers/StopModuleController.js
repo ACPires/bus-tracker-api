@@ -4,9 +4,7 @@ angular.module('farol-api').controller('StopModuleController',
 		console.log("Init Controller Stop Module");
 		
 		$scope.busstop = [];	
-		$scope.stopmodules = [];
-		
-		
+
 		function listBusStops() {			
 			BusStop.query(
 				function(busstop) {
@@ -23,29 +21,8 @@ angular.module('farol-api').controller('StopModuleController',
 			);
 		};
 	
-		
-		function listStopModules() {			
-			StopModule.query(
-				function(busstopmodule) {
-					console.log("List Stop Modules");
-					console.log(busstopmodule);
-					$scope.mensagem = { texto: 'Aqui deveria ter os módulo cadastrados'};
-					$scope.stopmodules = busstopmodule;
-				},
-				function(erro) {
-					console.log(erro);
-					$scope.mensagem = {
-						texto: 'Não foi possível obter a lista de paradas.'
-						};
-				}
-			);
-		};
-		
 		listBusStops();
-		listStopModules();
-		
-		
-		
+
 		if($routeParams.id){	
 			StopModule.get({id: $routeParams.id},
 				function(busstopmodule) {

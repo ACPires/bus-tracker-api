@@ -36,6 +36,16 @@ angular.module('farol-api',['ngRoute', 'ngResource'])
 			controller: 'StopModuleController'
 		});
 		
+		$routeProvider.when('/liststopmodules', {
+			templateUrl: 'partials/liststopmodules.html',
+			controller: 'ListStopModulesController'
+		});
+		
+		$routeProvider.when('/busmodule/:id/position', {
+			templateUrl: 'partials/busmodule.html',
+			controller: 'BusModuleController'
+		});
+		
 		$routeProvider.otherwise({redirectTo: '/listterminals'});
 	});
 	
