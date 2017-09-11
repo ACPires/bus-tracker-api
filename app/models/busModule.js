@@ -1,4 +1,3 @@
-var GeoJSON = require('mongoose-geojson-schema');
 var mongoose = require('mongoose');
 
 module.exports = function(){

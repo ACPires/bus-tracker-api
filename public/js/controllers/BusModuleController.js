@@ -12,6 +12,17 @@ angular.module('farol-api').controller('BusModuleController',
 				console.log(erro);
 			}
 		);
+		
+		$scope.salva = function (){
+			$scope.busmodule.$save()
+				.then(function() {
+					$scope.mensagem = {texto: 'Dados salvos com sucesso'};
+					$scope.busmodule = new BusModule();
+				})
+				.catch(function(erro){
+					$scope.mensagem = {texto: 'Deu erro'};
+				});
+		};		
 	}
 );
 

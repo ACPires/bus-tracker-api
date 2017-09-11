@@ -1,16 +1,14 @@
 module.exports = function(app) {
 
-
-	const BusStop = app.models.busStop;
 	const StopModule = app.models.stopModule;
-	
+	const BusStop = app.models.busStop;
+
 	var controller = {};
 	
 	controller.listBusStops = function(req, res){
 		BusStop.find().exec()
 			.then(
 				function(busStop){
-					console.log("oi");
 					res.json(busStop);
 				},
 				function(erro){
@@ -20,13 +18,10 @@ module.exports = function(app) {
 			);
 	};	
 	
-		
-	
 	controller.listStopModules = function(req, res){
 		StopModule.find().populate({path:'busStop', select: 'description -_id'}).exec()
 			.then(
 				function(stopmodules){
-					console.log("oi");
 					res.json(stopmodules);
 				},
 				function(erro){
@@ -35,9 +30,7 @@ module.exports = function(app) {
 				}
 			);
 	};	
-	
-	
-	
+
 	controller.addStopModule = function(req, res){
 		var _id = req.body._id;
 		
