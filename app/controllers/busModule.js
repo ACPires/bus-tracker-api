@@ -40,6 +40,17 @@ module.exports = function(app) {
 						res.status(500).json(erro);
 					}
 				);
+		}else{
+			BusModule.create(req.body)
+				.then(
+					function(busmodule){
+						res.status(201).json(busmodule);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+					}
+				);
 		}
 	};
 	
