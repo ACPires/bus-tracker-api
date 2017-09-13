@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(app) {	
 
 	const BusTerminal = app.models.busTerminal;
 
@@ -19,7 +19,7 @@ module.exports = function(app) {
 
 	controller.getTerminal = function(req, res){
 		var _id = req.params.id;
-		//findById is not working as needed
+
 		BusTerminal.findById(_id).exec()
 			.then(
 				function(busTerminal){

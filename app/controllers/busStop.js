@@ -1,20 +1,38 @@
 module.exports = function(app) {
 
+	//Create 	
+	//Read		
+	//Update	
+	//Delete	
+
 	const BusStop = app.models.busStop;
 	
 	var controller = {};
 	
 	controller.addStop = function(req, res){
-		BusStop.create(req.body)
-			.then(
-				function(busStop){
-					console.log("Parada cadastrada");
-				},
-				function(erro){
-					console.log(erro);
-					res.status(500).json(erro);
-				}
-			);
+		var _id = req.params.id;
+		
+		if(_id){
+			BusStop.findByIdAndUpdate({_id, req.body}).exec()
+				.then(
+					function(busstop){
+						res.json(busstop);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+		}else{
+			BusStop.create(req.body)
+				.then(
+					function(busStop){
+						console.log("Parada cadastrada");
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+					}
+				);
+		}
 	};
 
 	controller.listBus = function(req, res){
@@ -34,18 +52,49 @@ module.exports = function(app) {
 	}
 	
 	controller.listBusStops = function(req, res){
-		var promise = BusStop.find().exec()
-			.then(
-				function(busstop){					
-					res.json(busstop);
-				},
-				function(erro){
-					console.log(erro);
-					res.status(500).json(erro);
-				}
-			);
+		var _id = req.params.id;
+		
+		if(_id){
+			BusStop.findById(_id).exec()
+				.then(
+					function(busstop){
+						if(!busstop) throw new Error ("Parada não cadastrada!");
+						else{
+							res.json(busstop);
+						}
+					},
+					function(erro){
+						console.log(erro);
+						res.status(400).json(erro);
+					}
+				);	
+		}else{		
+			BusStop.find().exec()
+				.then(
+					function(busstop){					
+						res.json(busstop);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+					}
+				);
+		}
 	};	
 	
+	controller.removeBusStop = function(req, res){
+		var _id = req.params.id;
+		
+		BusStop.delete({"_id": _id}).exec()
+			then(
+				function(){
+					res.status(204).end();
+				},
+				function(erro){
+					return console.log(erro);
+				}
+			);
+	};
 	
 	return controller;
 	

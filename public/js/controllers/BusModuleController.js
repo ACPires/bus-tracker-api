@@ -2,6 +2,11 @@ angular.module('farol-api').controller('BusModuleController',
 	function($scope, $routeParams, BusModule) {
 		console.log($routeParams.id);
 		
+		//C		ok
+		//R		
+		//U		ok
+		//D		
+		
 		//método 'select' para bucar as configurações do ônibus
 		BusModule.get({id: $routeParams.id},
 			function(busmodule) {
@@ -22,7 +27,12 @@ angular.module('farol-api').controller('BusModuleController',
 				.catch(function(erro){
 					$scope.mensagem = {texto: 'Deu erro'};
 				});
-		};		
+		};	
+
+		BusModule.query(function(busmodule){
+			$scope.busmodule = busmodule;
+		);
+			
 	}
 );
 
