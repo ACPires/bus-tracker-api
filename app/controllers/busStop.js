@@ -1,10 +1,5 @@
 module.exports = function(app) {
 
-	//Create 	
-	//Read		
-	//Update	
-	//Delete	
-
 	const BusStop = app.models.busStop;
 	
 	var controller = {};
