@@ -1,9 +1,15 @@
 module.exports = function(app) {
 	
+	//Create 	ok
+	//Read		ok	falta listar tudo
+	//Update	ok
+	//Delete	ok
+	
 	const BusModule = app.models.busModule;
 	
 	var controller = {};
 	
+	//Search for a single document by ID
 	controller.getModule = function(req, res){
 		var _id = req.params.id;
 		
@@ -12,8 +18,6 @@ module.exports = function(app) {
 				function(busmodule){
 					if(!busmodule) throw new Error("Módulo não cadastrado");
 					else{
-						//res.json(busmodule);
-						//var settings = JSON.stringify({IdBusModule: busmodule._id, IdBus: busmodule.bus});
 						res.json({IdBusModule: busmodule._id, IdBus: busmodule.bus._id});
 					}
 				},
@@ -24,16 +28,72 @@ module.exports = function(app) {
 			);
 	};
 	
+	//Updates the position of the bus
 	controller.updatePosition = function(req, res){
 		var _id = req.params.id;
 		
 		if(_id){
-			//preciso analisar melhor esse aqui para atualizar observando o id do ônibus e não o id do módulo
-			//talvez tenha algum outro modo
 			BusModule.findByIdAndUpdate(_id, req.body).exec()
 				.then(
 					function(busmodule){
 						res.json(busmodule);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+					}
+				);
+		}
+	};
+	
+	//Removes a bus module by ID
+	controller.removeModule = function(req, res){
+		var _id = req.params.id;
+		
+		BusModule.remove({"_id": _id}).exec()
+			.then(
+				function(){
+					res.status(204).end();
+				},
+				function(erro){
+					return console.error(erro);
+				}
+			);
+	};
+	
+	//List all bus modules
+	controller.listBusModules = function(req, res){
+		BusModule.find().exec()
+			.then(
+				function(busmodule){
+					res.json(busmodule);
+				},
+				function(erro){
+					res.status(500).json(erro);
+				}
+			);
+	};
+
+	//Updates if there is an ID or creates in the case that it doesn't exists
+	controller.updateBusModule = function(req, res){
+		var _id = req.params.id;
+		
+		if(_id){
+			BusModule.findByIdAndUpdate(_id, req.body).exec()
+				.then(
+					function(busmodule){
+						res.json(busmodule);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(500).json(erro);
+					}
+				);
+		}else{
+			BusModule.create(req.body)
+				.then(
+					function(busmodule){
+						res.status(201).json(busmodule);
 					},
 					function(erro){
 						console.log(erro);

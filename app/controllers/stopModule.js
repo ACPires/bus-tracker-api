@@ -5,6 +5,7 @@ module.exports = function(app) {
 
 	var controller = {};
 	
+	//List the bus stops to help the insertion at Angular, right now it's not needed
 	controller.listBusStops = function(req, res){
 		BusStop.find().exec()
 			.then(
@@ -18,6 +19,7 @@ module.exports = function(app) {
 			);
 	};	
 	
+	//List all the bus stop modules that were created
 	controller.listStopModules = function(req, res){
 		StopModule.find().populate({path:'busStop', select: 'description -_id'}).exec()
 			.then(
@@ -30,7 +32,8 @@ module.exports = function(app) {
 				}
 			);
 	};	
-
+	
+	//The if clause updates a document and the else one creates a document
 	controller.addStopModule = function(req, res){
 		var _id = req.body._id;
 		
@@ -59,6 +62,7 @@ module.exports = function(app) {
 		}
 	};
 	
+	//Remove a document
 	controller.remove = function(req, res){
 		var _id = req.params.id;
 		StopModule.remove({"_id": _id}).exec()
@@ -71,6 +75,14 @@ module.exports = function(app) {
 				}
 			);
 	};
+	
+
+	//Get one document by ID
+	controller.getStopModule = function(req, res){
+		var _id = req.params.id;
+		StopModule.findById({"_id": _id}).exec()
+			.then(
+				function(stopmodule)
 	
 	return controller;
 	

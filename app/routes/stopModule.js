@@ -6,6 +6,7 @@ module.exports = function(app) {
 		.get(controller.listBusStops)
 		.post(controller.addStopModule);
 	app.route('/stopmodule/:id')
+		.get(controller.getStopModule)
 		.post(controller.addStopModule)
 		.delete(controller.remove);
 	app.route('/liststopmodules')
