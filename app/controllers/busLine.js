@@ -8,7 +8,7 @@ module.exports = function(app) {
 		var _id = req.params.id;
 		
 		if(_id){
-			Busline.findByIdAndUpdate({_id, req.body}).exec()
+			Busline.findByIdAndUpdate(_id, req.body).exec()
 				.then(
 					function(busLine){
 						res.json(busLine);

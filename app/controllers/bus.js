@@ -6,33 +6,33 @@ module.exports = function(app) {
 	
 	controller.listBus = function(req, res){
 		var _id = req.params.id;
-		
-		if(_id){
-			Bus.findById(_id).exec()
-				.then(
-					function(bus){
-						if(!bus) throw new Error ("Veículo não cadastrado!");
-						else{
-							res.json(bus);
-						}
-					},
-					function(erro){
-						console.log(erro);
-						res.status(404).json(erro);
-					}
-				);
-		}else{
-			Bus.find().exec()
-				.then(
-					function(bus){
+
+		Bus.findById(_id).exec()
+			.then(
+				function(bus){
+					if(!bus) throw new Error ("Veículo não cadastrado!");
+					else{
 						res.json(bus);
-					},
-					function(erro){
-						console.log(erro);
-						res.status(500).json(erro);
 					}
-				);
-		}				
+				},
+				function(erro){
+					console.log(erro);
+					res.status(404).json(erro);
+				}
+			);
+	};
+	
+	controller.listBuses = function(req, res){
+		Bus.find().exec()
+			.then(
+				function(bus){
+					res.json(bus);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(500).json(erro);
+				}
+			);
 	};
 	
 	controller.addBus = function(req, res){
@@ -77,4 +77,5 @@ module.exports = function(app) {
 			);
 	};
 
+	return controller;
 };

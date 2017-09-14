@@ -80,9 +80,17 @@ module.exports = function(app) {
 	//Get one document by ID
 	controller.getStopModule = function(req, res){
 		var _id = req.params.id;
-		StopModule.findById({"_id": _id}).exec()
+		StopModule.findById(_id).exec()
 			.then(
-				function(stopmodule)
+				function(stopmodule){
+					res.json(stopmodule);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(404).json(erro);
+				}
+			);
+	};
 	
 	return controller;
 	
