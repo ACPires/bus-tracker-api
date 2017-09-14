@@ -54,6 +54,7 @@ module.exports = function(app) {
 				.then(
 					function(bus){
 						console.log("Veículo cadastrado!");
+						res.json(bus);
 					},
 					function(erro){
 						console.log(erro);
@@ -66,9 +67,10 @@ module.exports = function(app) {
 	controller.removeBus = function(req, res){
 		var _id = req.params.id;
 		
-		Bus.delete({"_id": _id}).exec()
+		Bus.remove({"_id": _id}).exec()
 			.then(
 				function(){
+					console.log("Removido com sucesso!");
 					res.status(204).end();
 				},
 				function(erro){

@@ -82,9 +82,10 @@ module.exports = function(app) {
 	controller.removeBusStop = function(req, res){
 		var _id = req.params.id;
 		
-		BusStop.delete({"_id": _id}).exec()
-			then(
+		BusStop.remove({"_id": _id}).exec()
+			.then(
 				function(){
+					console.log("Removido com sucesso!" +  _id);
 					res.status(204).end();
 				},
 				function(erro){

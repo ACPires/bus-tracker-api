@@ -14,12 +14,10 @@ module.exports = function(){
 			type: Number
 		},
 		speed: {
-			type: Number,
-			required: true
+			type: Number
 		},
 		lastRead: {
-			type: Date,
-			required: true
+			type: Date
 		},
 		nextStop: {
 			type: mongoose.Schema.Types.ObjectId,
