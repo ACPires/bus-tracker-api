@@ -35,33 +35,34 @@ module.exports = function(app) {
 	
 	controller.listLine = function(req, res){
 		var _id = req.params.id;
-		
-		if(_id){
-			Busline.findById(_id).exec()
-				.then(
-					function(busline){
-						if(!busline) throw new Error ("Linha não cadastrada!");
-						else{
-							res.json(busline);
-						}
-					},
-					function(erro){
-						console.log(erro);
-						res.status(404).json(erro);
-					}
-				);
-		}else{
-			Busline.find().exec()
-				.then(
-					function(busline){
+
+		Busline.findById(_id).exec()
+			.then(
+				function(busline){
+					if(!busline) throw new Error ("Linha não cadastrada!");
+					else{
 						res.json(busline);
-					},
-					function(erro){
-						console.log(erro);
-						res.status(500).json(erro);
 					}
-				);
-		}
+				},
+				function(erro){
+					console.log(erro);
+					res.status(404).json(erro);
+				}
+			);
+		
+	};
+	
+	controller.listLines = function(req, res){
+		Busline.find().exec()
+		.then(
+			function(busline){
+				res.json(busline);
+			},
+			function(erro){
+				console.log(erro);
+				res.status(500).json(erro);
+			}
+		);
 	};
 	
 	controller.removeLine = function(req, res){
