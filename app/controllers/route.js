@@ -1,4 +1,4 @@
-//Used to manipulate the collection route, that has the bus lines with theirs initial and last stops
+//Used to manipulate the route collection, that has the bus lines with theirs initial and last stops
 
 module.exports = function(app) {
 	
@@ -6,35 +6,35 @@ module.exports = function(app) {
 	
 	var controller = {};
 	
+	controller.listRoutes = function(req, res){
+		Route.find().exec()
+			.then(
+				function(route){
+					res.json(route);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(500).json(erro);
+				}
+			);
+	};
+	
 	controller.listRoute = function(req, res){
 		var _id = req.params.id;
-		
-		if(_id){
-			Route.findById(_id).exec()
-				.then(
-					function(route){
-						if(!route) throw new Error ("Rota não cadastrada!");
-						else{
-							res.json(route);
-						}
-					},
-					function(erro){
-						console.log(erro);
-						res.status(404).json(erro);
-					}
-				);
-		}else{
-			Route.find().exec()
-				.then(
-					function(route){
+
+		Route.findById(_id).exec()
+			.then(
+				function(route){
+					if(!route) throw new Error ("Rota não cadastrada!");
+					else{
 						res.json(route);
-					},
-					function(erro){
-						console.log(erro);
-						res.status(500).json(erro);
 					}
-				);
-		}
+				},
+				function(erro){
+					console.log(erro);
+					res.status(404).json(erro);
+				}
+			);
 	};
 	
 	controller.addRoute = function(req, res){
@@ -78,4 +78,6 @@ module.exports = function(app) {
 				}
 			);
 	};
+	
+	return controller;
 };

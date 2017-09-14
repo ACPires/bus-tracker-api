@@ -8,7 +8,7 @@ module.exports = function(app) {
 		var _id = req.params.id;
 		
 		if(_id){
-			BusStop.findByIdAndUpdate({_id, req.body}).exec()
+			BusStop.findByIdAndUpdate(_id, req.body).exec()
 				.then(
 					function(busstop){
 						res.json(busstop);
@@ -16,6 +16,8 @@ module.exports = function(app) {
 					function(erro){
 						console.log(erro);
 						res.status(500).json(erro);
+					}
+				);
 		}else{
 			BusStop.create(req.body)
 				.then(
