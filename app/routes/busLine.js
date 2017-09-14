@@ -4,7 +4,7 @@ module.exports = function(app) {
 	
 	app.route('/busline')
 		.get(controller.listLines);
-	app.route('/busLine/:id')
+	app.route('/busline/:id')
 		.get(controller.listLine)
 		.post(controller.addLine)
 		.delete(controller.removeLine);
