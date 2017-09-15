@@ -9,4 +9,6 @@ module.exports = function(app) {
 		.get(controller.listLine)
 		.post(controller.addLine)
 		.delete(controller.removeLine);
+	app.route('/busline/info/:busline')
+		.get(controller.listByBusLine);
 };

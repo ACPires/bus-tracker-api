@@ -64,6 +64,21 @@ module.exports = function(app) {
 			}
 		);
 	};
+
+	controller.listByBusLine = function(req, res){
+		var busLine = req.params.busline;
+		
+		Busline.findOne({'busLine': busLine}).exec()
+			.then(
+				function(busline){
+					res.json(busline);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(500).json(erro);
+				}
+			);
+	};
 	
 	controller.removeLine = function(req, res){
 		var _id = req.params.id;
