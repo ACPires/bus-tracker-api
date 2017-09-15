@@ -3,6 +3,13 @@ var mongoose = require('mongoose');
 module.exports = function(){
 	
 	const busstop = mongoose.Schema({
+		serial: {
+			type: Number,
+			required: true,
+			index:{
+				unique: true
+			}
+		},
 		description: {
 			type: String,
 			required: true,
