@@ -6,9 +6,6 @@ module.exports = function(app) {
 		.post(controller.addTerminal);	
 	app.route('/busterminal/:id')
 		.get(controller.getTerminal)
+		.post(controller.addTerminal)
 		.delete(controller.removeTerminal);
-	app.route('/listterminals')
-		.get(controller.listTerminals);	
-
-
 };

@@ -53,6 +53,7 @@ module.exports = function(app) {
 		BusModule.remove({"_id": _id}).exec()
 			.then(
 				function(){
+					console.log("Removido com sucesso!");
 					res.status(204).end();
 				},
 				function(erro){
@@ -63,15 +64,29 @@ module.exports = function(app) {
 	
 	//List all bus modules
 	controller.listBusModules = function(req, res){
-		BusModule.find().exec()
-			.then(
-				function(busmodule){
-					res.json(busmodule);
-				},
-				function(erro){
-					res.status(500).json(erro);
-				}
-			);
+		var _id = req.params.id;
+		
+		if(_id){
+			BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextStop', select: 'description -_id'}).exec()
+				.then(
+					function(busmodule){
+						res.json(busmodule);
+					},
+					function(erro){
+						res.status(500).json(erro);
+					}
+				);
+		}else{
+			BusModule.find().exec()
+				.then(
+					function(busmodule){
+						res.json(busmodule);
+					},
+					function(erro){
+						res.status(500).json(erro);
+					}
+				);
+		}
 	};
 
 	//Updates if there is an ID or creates in the case that it doesn't exists

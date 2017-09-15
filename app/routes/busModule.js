@@ -3,7 +3,8 @@ module.exports = function(app) {
 	var controller = app.controllers.busModule;
 	
 	app.route('/busmodule')
-		.get(controller.listBusModules);
+		.get(controller.listBusModules)
+		.post(controller.updatePosition);
 	app.route('/busmodule/:id')
 		.delete(controller.removeModule)
 		.post(controller.updateBusModule);

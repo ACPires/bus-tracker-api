@@ -23,7 +23,7 @@ module.exports = function(app) {
 				.then(
 					function(busLine){
 						console.log("Linha cadastrada");
-						//res.status(201).json(busline);
+						res.status(201).json(busLine);
 					},
 					function(erro){
 						console.log(erro);
@@ -64,6 +64,21 @@ module.exports = function(app) {
 			}
 		);
 	};
+
+	controller.listByBusLine = function(req, res){
+		var busLine = req.params.busline;
+		
+		Busline.findOne({'busLine': busLine}).exec()
+			.then(
+				function(busline){
+					res.json(busline);
+				},
+				function(erro){
+					console.log(erro);
+					res.status(500).json(erro);
+				}
+			);
+	};
 	
 	controller.removeLine = function(req, res){
 		var _id = req.params.id;
@@ -71,6 +86,7 @@ module.exports = function(app) {
 		Busline.remove({"_id": _id}).exec()
 			.then(
 				function(){
+					console.log("Removido com sucesso!");
 					res.status(204).end();
 				},
 				function(erro){

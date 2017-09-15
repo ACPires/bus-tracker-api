@@ -56,6 +56,7 @@ module.exports = function(app) {
 				.then(
 					function(route){
 						console.log("Rota cadastrada!");
+						res.json(route);
 					},
 					function(erro){
 						console.log(erro);
@@ -68,7 +69,7 @@ module.exports = function(app) {
 	controller.removeRoute = function(req, res){
 		var _id = req.params.id;
 		
-		Route.delete({"_id": _id}).exec()
+		Route.remove({"_id": _id}).exec()
 			.then(
 				function(){
 					res.status(204).end();

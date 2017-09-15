@@ -1,7 +1,10 @@
 module.exports = function(app) {
 	
 	var controller = app.controllers.busStop;
-
+	
+	app.route('/busstop')
+		.get(controller.listBusStops)
+		.post(controller.addStop);
 	app.route('/busstop/:id/bus')
 		.get(controller.listBus);
 	app.route('/busstop/:id')
