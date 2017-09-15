@@ -23,6 +23,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.8.8",
     "express-load": "^1.1.16",
+    "firebase-admin": "^5.2.1",
     "method-override": "^2.3.9",
     "mongodb-promise": "0.0.4",
     "mongoose": "^4.11.1",
