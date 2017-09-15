@@ -4,7 +4,7 @@ var serviceAccount = require("../beacon-firebase-key.json");
 module.exports = function(){
   var firebase = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://beacon-c0afe.firebaseio.com"
+    databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
   });
 
   return firebase;
