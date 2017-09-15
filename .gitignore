@@ -93,4 +93,7 @@ testem.log
 #System Files
 .DS_Store
 
+### Firebase ###
+/beacon-firebase-key.json 
+
 # End of https://www.gitignore.io/api/mean
