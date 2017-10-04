@@ -20,9 +20,13 @@ module.exports = function(){
 			type: Date,
 			default: Date.now
 		},
-		nextStop: {
+		actualRouteStop: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'BusStop'
+			ref: 'RouteStop'
+		},
+		nextRouteStop: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'RouteStop'
 		},
 		updateTime: {
 			type: Number,
