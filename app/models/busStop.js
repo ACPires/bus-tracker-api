@@ -29,7 +29,7 @@ module.exports = function(){
 			type: Number,
 			required: true
 		},
-		busLine: [{
+		busLines: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'BusLine'
 		}]
