@@ -28,7 +28,11 @@ module.exports = function(){
 		longitude: {
 			type: Number,
 			required: true
-		}
+		},
+		busLine: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'BusLine'
+		}]
 	}, { collection: 'busstop'});
 
 	return mongoose.model('BusStop', busstop);
