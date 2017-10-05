@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 module.exports = function(){
 	
 	const busmodule = mongoose.Schema({
-		bus: {
+		busLine: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Bus'
+			ref: 'BusLine'
 		},
 		latitude:{
 			type: Number
@@ -20,7 +20,7 @@ module.exports = function(){
 			type: Date,
 			default: Date.now
 		},
-		actualRouteStop: {
+		actualRoutePoint: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'RouteStop'
 		},

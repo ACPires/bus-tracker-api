@@ -1,11 +1,9 @@
 module.exports = function(app) {
-	
-	//Create 	ok
-	//Read		ok	falta listar tudo
-	//Update	ok
-	//Delete	ok
-	
+
 	const BusModule = app.models.busModule;
+	const RoutePoints = app.models.routeStop;
+	const Route = app.models.route;
+	const Palkia = app.models.wizardOfSpace;
 	
 	var controller = {};
 	
@@ -13,7 +11,7 @@ module.exports = function(app) {
 	controller.getModule = function(req, res){
 		var _id = req.params.id;
 		
-		BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextStop', select: 'description -_id'}).exec()
+		BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextRouteStop', select: 'description -_id'}).exec()
 			.then(
 				function(busmodule){
 					if(!busmodule) throw new Error("Módulo não cadastrado");
@@ -33,16 +31,51 @@ module.exports = function(app) {
 		var _id = req.params.id;
 		
 		if(_id){
-			BusModule.findByIdAndUpdate(_id, req.body).exec()
+			BusModule.findById(_id).exec()
 				.then(
 					function(busmodule){
-						res.json(busmodule);
+						var busline = busmodule.busLine;
+						Route.find({'busLine': busline}).exec()
+							.then(
+								function(route){
+									var route = route._id;
+									RoutePoints.find({'route': route}).exec()
+										.then(
+											function(routepoints){
+												var position = Palkia.getCorrectPosition(req.body.latitude, req.body.longitude, routepoints);
+												var nextPoint = Palkia.getNextStop(budmodule.actualRoutePoint, routepoints);
+												
+												req.body.latitude = position.latitude;
+												req.body.longitude = position.longitude;
+												req.body.actualRoutePoint = nextPoint;
+												BusModule.findByIdAndUpdate(_id, req.body).exec()
+													.then(
+														function(busmodule){
+															res.json(busmodule);
+														},
+														function(erro){
+															console.log(erro);
+															res.status(500).json(erro);
+														}
+													);
+											},
+											function(erro){
+												console.log(erro);
+												res.status(404).json(erro);
+											}
+										);						
+								},
+								function(erro){
+									console.log(erro);
+									res.status(404).json(erro);
+								}
+							);
 					},
 					function(erro){
+						res.status(404).json(erro);
 						console.log(erro);
-						res.status(500).json(erro);
 					}
-				);
+				);	
 		}
 	};
 	
@@ -67,7 +100,7 @@ module.exports = function(app) {
 		var _id = req.params.id;
 		
 		if(_id){
-			BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextStop', select: 'description -_id'}).exec()
+			BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextRouteStop', select: 'description -_id'}).exec()
 				.then(
 					function(busmodule){
 						res.json(busmodule);
