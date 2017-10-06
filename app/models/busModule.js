@@ -22,11 +22,11 @@ module.exports = function(){
 		},
 		actualRoutePoint: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'RouteStop'
+			ref: 'RoutePoint'
 		},
 		nextRouteStop: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'RouteStop'
+			ref: 'RoutePoint'
 		},
 		updateTime: {
 			type: Number,
