@@ -2,6 +2,8 @@ module.exports = function(app) {
 
 	const BusStop = app.models.busStop;
 	const BusModule = app.models.busModule;
+	const RoutePoints = app.models.routePoint;
+	const Dialga = app.models.wizardOfTime;
 	
 	var controller = {};
 	
@@ -43,10 +45,33 @@ module.exports = function(app) {
 					
 					var buslineid = busstop.busLines;
 					
-					BusModule.find({'busLine': buslineid}).populate({path: 'busLine', select: 'busLine'}).exec()
+					BusModule.find({'busLine': buslineid}).populate({path: 'busLine', select: 'busLine actualRoutePoint'}).exec()
 						.then(
 							function(busline){
 								if(!busline) throw new Error("Nenhum veículo cadastrado ou em circulação no momento");
+									RoutePoints.findOne({'busStop': busstop._id}).exec()
+										.then(
+											function(busstopposition){
+												var busposition = busline.actualRoutePoint.position;
+												var userposition = busstopposition.position;
+												RoutePoints.query.where('position').within().box(busposition, userposition)
+													.then(
+														function(allpoints){
+															console.log(allppoints);
+															var prediction = Dialga.getPrevision(allpoints);
+															res.json(prediction);
+														},
+														function(erro){
+															console.log("Deu ruim no allpoints" + erro);
+															res.status(404).json(erro);
+														}
+													);
+											},
+											function(erro){
+												console.log("Deu ruim encontrando a posição do usuário" + erro);
+												res.status(404).json(erro);
+											}
+										);	
 								res.json(busline);
 							},
 							function(erro){

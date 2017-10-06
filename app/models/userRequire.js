@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 module.exports = function(){
 
 	const userrequire = mongoose.Schema({
-		bus: {
+		busModule: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref:'Bus',
+			ref:'BusModule',
 		},
 		busStop: {
 			type: mongoose.Schema.Types.ObjectId,
