@@ -1,7 +1,7 @@
 module.exports = function(app) {
 
 	const BusModule = app.models.busModule;
-	const RoutePoints = app.models.routeStop;
+	const RoutePoints = app.models.routePoint;
 	const Route = app.models.route;
 	const Palkia = app.models.wizardOfSpace;
 	

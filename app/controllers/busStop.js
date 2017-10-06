@@ -1,7 +1,7 @@
 module.exports = function(app) {
 
 	const BusStop = app.models.busStop;
-	const Bus = app.models.bus;
+	const BusModule = app.models.busModule;
 	
 	var controller = {};
 	
@@ -41,9 +41,9 @@ module.exports = function(app) {
 				function(busstop){
 					if(!busstop) throw new Error("Nenhuma linha cadastrada nessa parada");
 					
-					var _id = busstop.busLines;
+					var buslineid = busstop.busLines;
 					
-					Bus.find({'busLine': _id}).populate({path: 'busLine', select: 'busLine'}).exec()
+					BusModule.find({'busLine': buslineid}).populate({path: 'busLine', select: 'busLine'}).exec()
 						.then(
 							function(busline){
 								if(!busline) throw new Error("Nenhum veículo cadastrado ou em circulação no momento");
