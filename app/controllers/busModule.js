@@ -4,13 +4,13 @@ module.exports = function(app) {
 	const RoutePoints = app.models.routePoint;
 	const Route = app.models.route;
 	const Palkia = app.models.wizardOfSpace;
-	
+
 	var controller = {};
-	
+
 	//Search for a single document by ID
 	controller.getModule = function(req, res){
 		var _id = req.params.id;
-		
+
 		BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextRouteStop', select: 'description -_id'}).exec()
 			.then(
 				function(busmodule){
@@ -25,32 +25,38 @@ module.exports = function(app) {
 				}
 			);
 	};
-	
+
 	//Updates the position of the bus
 	controller.updatePosition = function(req, res){
 		var _id = req.params.id;
-		
+
 		if(_id){
 			BusModule.findById(_id).exec()
 				.then(
 					function(busmodule){
 						var busline = busmodule.busLine;
-						Route.find({'busLine': busline}).exec()
+						Route.findOne({'busLine': busline}).exec()
 							.then(
-								function(route){
-									var route = route._id;
-									RoutePoints.find({'route': route}).exec()
+								function(routeFind){
+									RoutePoints.find({'route': routeFind._id}).exec()
 										.then(
 											function(routepoints){
 												var position = Palkia.getCorrectPosition(req.body.latitude, req.body.longitude, routepoints);
-												var nextPoint = Palkia.getNextStop(budmodule.actualRoutePoint, routepoints);
-												
+												var nextPoint = Palkia.getNextStop(position, routepoints);
+
+												console.log(position);
+												console.log(nextPoint);
+
 												req.body.latitude = position.latitude;
 												req.body.longitude = position.longitude;
 												req.body.actualRoutePoint = nextPoint;
+
 												BusModule.findByIdAndUpdate(_id, req.body).exec()
 													.then(
 														function(busmodule){
+
+															console.log("Busmodule atualizado com sucesso: " + busmodule);
+
 															res.json(busmodule);
 														},
 														function(erro){
@@ -63,7 +69,7 @@ module.exports = function(app) {
 												console.log(erro);
 												res.status(404).json(erro);
 											}
-										);						
+										);
 								},
 								function(erro){
 									console.log(erro);
@@ -75,14 +81,14 @@ module.exports = function(app) {
 						res.status(404).json(erro);
 						console.log(erro);
 					}
-				);	
+				);
 		}
 	};
-	
+
 	//Removes a bus module by ID
 	controller.removeModule = function(req, res){
 		var _id = req.params.id;
-		
+
 		BusModule.remove({"_id": _id}).exec()
 			.then(
 				function(){
@@ -94,11 +100,11 @@ module.exports = function(app) {
 				}
 			);
 	};
-	
+
 	//List all bus modules
 	controller.listBusModules = function(req, res){
 		var _id = req.params.id;
-		
+
 		if(_id){
 			BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextRouteStop', select: 'description -_id'}).exec()
 				.then(
@@ -125,7 +131,7 @@ module.exports = function(app) {
 	//Updates if there is an ID or creates in the case that it doesn't exists
 	controller.updateBusModule = function(req, res){
 		var _id = req.params.id;
-		
+
 		if(_id){
 			BusModule.findByIdAndUpdate(_id, req.body).exec()
 				.then(
@@ -150,7 +156,7 @@ module.exports = function(app) {
 				);
 		}
 	};
-	
+
 	return controller;
 
 };
