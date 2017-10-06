@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = function(){	
-	const routestop = mongoose.Schema({
+	const routepoint = mongoose.Schema({
 		route: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Route'
@@ -22,9 +22,9 @@ module.exports = function(){
 			type: Number,
 			required:true
 		},
-	}, { collection: 'routestop'});
+	}, { collection: 'routepoint'});
 
-	return mongoose.model('RouteStop', routestop);
+	return mongoose.model('RoutePoint', routepoint);
 	
 };
 
