@@ -38,7 +38,7 @@ module.exports = function(app) {
 						Route.findOne({'busLine': busline}).exec()
 							.then(
 								function(route){
-									var route = route._id;			//adapted this one
+									var route = route._id;
 									RoutePoints.find({'route': route}).exec()
 										.then(
 											function(routepoints){
