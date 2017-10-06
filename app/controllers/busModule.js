@@ -37,8 +37,9 @@ module.exports = function(app) {
 						var busline = busmodule.busLine;
 						Route.findOne({'busLine': busline}).exec()
 							.then(
-								function(routeFind){
-									RoutePoints.find({'route': routeFind._id}).exec()
+								function(route){
+									var route = route._id;			//adapted this one
+									RoutePoints.find({'route': route}).exec()
 										.then(
 											function(routepoints){
 												var position = Palkia.getCorrectPosition(req.body.latitude, req.body.longitude, routepoints);
