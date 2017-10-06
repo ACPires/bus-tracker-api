@@ -1,18 +1,18 @@
 module.exports = function(app) {
 	
-	const RouteStop = app.models.routeStop;
+	const RoutePoint = app.models.routePoint;
 	var controller = {};
 	
-	controller.listRouteStop = function(req, res) {
+	controller.listRoutePoint = function(req, res) {
 		var _id = req.params.id;
 		
 		if(_id){
-			RouteStop.findById(_id).populate().exec()
+			RoutePoint.findById(_id).populate().exec()
 				.then(
-					function(routestop) {
-						if(!routestop) throw new Error ("Ponto da rota não cadastrado!");
+					function(routepoint) {
+						if(!routepoint) throw new Error ("Ponto da rota não cadastrado!");
 						else{
-							res.json(routestop);
+							res.json(routepoint);
 						}
 					},
 					function(erro) {
@@ -21,10 +21,10 @@ module.exports = function(app) {
 					}
 				);
 		}else{
-			RouteStop.find().populate().exec()
+			RoutePoint.find().populate().exec()
 				.then(
-					function(routestop) {
-						res.json(routestop);
+					function(routepoint) {
+						res.json(routepoint);
 					},
 					function(erro) {
 						console.log(erro);
@@ -34,14 +34,14 @@ module.exports = function(app) {
 		}
 	};
 	
-	controller.addRouteStop = function(req, res) {
+	controller.addRoutePoint = function(req, res) {
 		var _id = req.params.id;
 		
 		if(_id){
-			RouteStop.findByIdAndUpdate(_id, req.body).exec()
+			RoutePoint.findByIdAndUpdate(_id, req.body).exec()
 				.then(
-					function(routestop){
-						res.json(routestop);
+					function(routepoint){
+						res.json(routepoint);
 					},
 					function(erro){
 						console.log(erro);
@@ -49,10 +49,10 @@ module.exports = function(app) {
 					}
 				);
 		}else{
-			RouteStop.create(req.body)
+			RoutePoint.create(req.body)
 				.then(
-					function(routestop){
-						res.json(routestop);
+					function(routepoint){
+						res.json(routepoint);
 						console.log("Cadastro realizado com sucesso!");
 					},
 					function(erro){
@@ -63,10 +63,10 @@ module.exports = function(app) {
 		}
 	};
 	
-	controller.removeRouteStop = function(req, res) {
+	controller.removeRoutePoint = function(req, res) {
 		var _id = req.params.id;
 		
-		RouteStop.remove({"_id": _id}).exec()
+		RoutePoint.remove({"_id": _id}).exec()
 			.then(
 				function(){
 					console.log("Removido com sucesso!");
