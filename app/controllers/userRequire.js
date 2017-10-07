@@ -1,5 +1,7 @@
 module.exports = function(app){
+	
 	const UserRequire = app.models.userRequire;
+	const BusStop = app.models.busStop;
 	var controller = {};
 
 	controller.listRequires = function(req, res) {
@@ -34,32 +36,40 @@ module.exports = function(app){
 	};
 	
 	controller.addRequire = function(req, res) {
-		var _id = req.params.id;
+		var busmodule = req.params.busmoduleid;
+		var busstopserial = req.params.busstopserial;
 		
-		if(_id){
-			UserRequire.findByIdAndUpdate(_id, req.body).exec()
-				.then(
-					function(require){
-						res.json(require);
-					},
-					function(erro){
-						console.log(erro);
-						res.status(404).json(erro);
-					}
-				);
-		}else{
-			UserRequire.create(req.body)
-				.then(
-					function(require){
-						res.json(require);
-						console.log("Requisição registrada!");
-					},
-					function(erro){
-						console.log(erro);
-						res.status(500).json(erro);
-					}
-				);
-		}
+		if(busmodule){
+			console.log("module id: "+busmodule);
+			if(busstopserial){
+				BusStop.findOne({'serial': busstopserial}).exec()
+					.then(
+						function(busstop){
+							console.log("busstop id: "+busstop._id);
+							if(!busstop) throw new Error ("Parada não registrada no sistema!");
+							var userrequire = {busModule: busmodule, busStop: busstop._id};
+							UserRequire.create(userrequire)
+								.then(
+									function(require){
+										res.status(201).json(require);
+										console.log("Requisição registrada!");
+									},
+									function(erro){
+										console.log(erro);
+										res.status(500).json(erro);
+									}
+								);
+						},
+						function(erro){
+							console.log(erro);
+							res.status(404).json(erro);
+						}
+					);
+			}else
+				res.status(404).json("Serial indefinido. "+ busstopserial);
+		}else
+			res.status(404).json("Id do veículo escolhido indefinido. "+ busmodule);
+			
 	};
 	
 	controller.removeRequire = function(req, res) {
@@ -76,6 +86,24 @@ module.exports = function(app){
 				}
 			);
 	};
+	
+	controller.updateRequire = function(req, res){
+		var _id = req.params.id;
+		
+		if(_id){
+			UserRequire.findByIdAndUpdate(_id, req.body).exec()
+				.then(
+					function(require){
+						res.json(require);
+					},
+					function(erro){
+						console.log(erro);
+						res.status(404).json(erro);
+					}
+				);
+		}
+		
+	}
 	
 	return controller;
 };
