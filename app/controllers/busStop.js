@@ -3,13 +3,14 @@ module.exports = function(app) {
 	const BusStop = app.models.busStop;
 	const BusModule = app.models.busModule;
 	const RoutePoints = app.models.routePoint;
+	const Route = app.models.route;
 	const Dialga = app.models.wizardOfTime;
-	
+
 	var controller = {};
-	
+
 	controller.addStop = function(req, res){
 		var _id = req.params.id;
-		
+
 		if(_id){
 			BusStop.findByIdAndUpdate(_id, req.body).exec()
 				.then(
@@ -36,49 +37,43 @@ module.exports = function(app) {
 	};
 
 	controller.listBus = function(req, res){
-		var _id = req.params.id;
-		
-		BusStop.findById(_id).select('busLines').exec()
+		var serialId = req.params.id;
+
+		console.log("Busca pelo serial: " + serialId);
+
+		BusStop.findOne({serial: serialId}).select('busLines').exec()
 			.then(
 				function(busstop){
 					if(!busstop) throw new Error("Nenhuma linha cadastrada nessa parada");
-					
+
 					var buslineid = busstop.busLines;
-					
-					BusModule.find({'busLine': buslineid}).populate({path: 'busLine', select: 'busLine actualRoutePoint'}).exec()
+
+					console.log(buslineid);
+
+					BusModule.find({'busLine': buslineid}).lean().populate({path: 'busLine', select: 'busLine actualRoutePoint'}).exec()
 						.then(
-							function(busline){
-								if(!busline) throw new Error("Nenhum veículo cadastrado ou em circulação no momento");
-									RoutePoints.findOne({'busStop': busstop._id}).exec()
-										.then(
-											function(busstopposition){
-												var busposition = busline.actualRoutePoint.position;
-												var userposition = busstopposition.position;
-												RoutePoints.query.where('position').within().box(busposition, userposition)
-													.then(
-														function(allpoints){
-															console.log(allppoints);
-															var prediction = Dialga.getPrevision(allpoints);
-															res.json(prediction);
-														},
-														function(erro){
-															console.log("Deu ruim no allpoints" + erro);
-															res.status(404).json(erro);
-														}
-													);
-											},
-											function(erro){
-												console.log("Deu ruim encontrando a posição do usuário" + erro);
-												res.status(404).json(erro);
-											}
-										);	
-								res.json(busline);
+							function(busModuleFound){
+								if(!busModuleFound) throw new Error("Nenhum veículo cadastrado ou em circulação no momento");
+								console.log(busModuleFound);
+
+								var totalCalls = 0;
+
+								busModuleFound.forEach(function(busModule, index){
+									getPredictionForModule(busModule, busstop._id, function(arriveAt){
+										busModule.arriveAt = arriveAt;
+
+										totalCalls++;
+
+										if(totalCalls == busModuleFound.length) res.json(busModuleFound);
+									});
+								});
+
 							},
 							function(erro){
 								console.log(erro);
 								res.status(404).json(erro);
 							}
-						);		
+						);
 				},
 				function(erro){
 					console.log(erro);
@@ -86,28 +81,73 @@ module.exports = function(app) {
 				}
 			);
 	}
-	
+
+	function getPredictionForModule(busModule, busStopId, callback){
+
+		Route.findOne({busLine: busModule.busLine}).exec()
+			.then(
+				function(routeFound){
+
+					RoutePoints.find({route: routeFound._id}).exec()
+						.then(
+							function(routePoints){
+
+								var busModulePosition;
+
+								if(busModule.actualRoutePoint){
+									busModulePosition = busModule.actualRoutePoint;
+								}else{
+									busModulePosition = 0;
+								}
+
+								var routePointBusStop = routePoints.find(function(routePoint){
+									if(!routePoint.busStop) { return false; }
+									var one = routePoint.busStop.toString();
+									var two = busStopId.toString();
+									return two === one;
+								});
+
+								if(!routePointBusStop) {
+									console.log("Não existe este ponto nesta rota");
+								}else{
+									console.log(routePointBusStop);
+								}
+
+								busModule.busLine.arriveAt = Dialga.getPrevision(routePoints.slice(busModulePosition, routePointBusStop.position));
+								console.log("Arrive at: " + busModule.busLine.arriveAt);
+
+								callback(busModule.busLine.arriveAt);
+							},
+							function(error){
+								res.status(500).json(error);
+							}
+						)
+				},
+				function(error){
+					res.status(500).json(error);
+				}
+			);
+	}
+
 	controller.listBusStops = function(req, res){
 		var _id = req.params.id;
-		
+
 		if(_id){
 			BusStop.findById(_id).exec()
 				.then(
 					function(busstop){
-						if(!busstop) throw new Error ("Parada não cadastrada!");
-						else{
-							res.json(busstop);
-						}
+						//if(!busstop) throw new Error ("Parada não cadastrada!");
+						res.json(busstop);
 					},
 					function(erro){
 						console.log(erro);
 						res.status(400).json(erro);
 					}
-				);	
-		}else{		
+				);
+		}else{
 			BusStop.find().exec()
 				.then(
-					function(busstop){					
+					function(busstop){
 						res.json(busstop);
 					},
 					function(erro){
@@ -116,11 +156,11 @@ module.exports = function(app) {
 					}
 				);
 		}
-	};	
-	
+	};
+
 	controller.removeBusStop = function(req, res){
 		var _id = req.params.id;
-		
+
 		BusStop.remove({"_id": _id}).exec()
 			.then(
 				function(){
@@ -132,7 +172,7 @@ module.exports = function(app) {
 				}
 			);
 	};
-	
+
 	return controller;
-	
+
 };
