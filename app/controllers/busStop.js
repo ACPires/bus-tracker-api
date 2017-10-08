@@ -60,8 +60,6 @@ module.exports = function(app) {
 
 								busModuleFound.forEach(function(busModule, index){
 									getPredictionForModule(busModule, busstop._id, function(arriveAt){
-										busModule.arriveAt = arriveAt;
-
 										totalCalls++;
 
 										if(totalCalls == busModuleFound.length) res.json(busModuleFound);
@@ -113,10 +111,10 @@ module.exports = function(app) {
 									console.log(routePointBusStop);
 								}
 
-								busModule.busLine.arriveAt = Dialga.getPrevision(routePoints.slice(busModulePosition, routePointBusStop.position));
-								console.log("Arrive at: " + busModule.busLine.arriveAt);
+								busModule.arriveAt = Dialga.getPrevision(routePoints.slice(busModulePosition, routePointBusStop.position));
+								console.log("Arrive at: " + busModule.arriveAt);
 
-								callback(busModule.busLine.arriveAt);
+								callback(busModule.arriveAt);
 							},
 							function(error){
 								res.status(500).json(error);
