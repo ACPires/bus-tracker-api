@@ -15,6 +15,12 @@ module.exports = function(app){
   controller.sendAlertToUser = function(req, res){
     var id = req.params.id_user;
 
+    controller.sendAlert(id);
+
+    res.json("feito");
+  };
+
+  controller.sendAlert = function(userId){
     var request = require('request');
     console.log(process.env.FIREBASE_CLOUD_MESSAGE_KEY);
 
@@ -30,24 +36,21 @@ module.exports = function(app){
           "body": "Seu ônibus chegou",
           "text": "Ele está parado te aguardando"
         },
-          "to" : id
+          "to" : userId
         }
       )
     }, function(error, response, body) {
       if (error) {
         console.error(error, response, body);
-        res.json(error)
       }
       else if (response.statusCode >= 400) {
         console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body);
-        res.status(response.statusCode).json(body)
       }
       else {
         console.log('Done!')
-        res.json("Mensagem enviada");
       }
     });
-  }
+  };
 
   return controller;
-};
+}
