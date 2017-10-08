@@ -5,7 +5,7 @@ wizard.getNextStop = function(actualRouteStop, routePoints){
   var nextStop;
 
   routePoints.some(function(routePoint, index){
-    if(actualRouteStop.position < routePoint.position &&
+    if(actualRouteStop.position <= routePoint.position &&
        routePoint.busStop){
         nextStop = routePoint;
         return false;

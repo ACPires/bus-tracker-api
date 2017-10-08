@@ -2,8 +2,10 @@ module.exports = function(app) {
 
 	const BusModule = app.models.busModule;
 	const RoutePoints = app.models.routePoint;
+	const UserRequire = app.models.userRequire;
 	const Route = app.models.route;
 	const Palkia = app.models.wizardOfSpace;
+	var notificationService = require('./notification');
 
 	var controller = {};
 
@@ -25,6 +27,43 @@ module.exports = function(app) {
 				}
 			);
 	};
+
+	controller.arrive = function(req, res){
+		var _id = req.params.id;
+
+		console.log(_id);
+
+		BusModule.findById(_id).populate({path:'bus', select: '_id'}).populate({path: 'nextRouteStop'}).exec()
+			.then(
+				function(busmodule){
+					console.log(busmodule)
+					var busStopID = 0;
+
+					if(busmodule.nextRouteStop) busStopID = busmodule.nextRouteStop.busStop;
+
+					UserRequire.find({busModule: busmodule._id, busStop: busStopID}).exec()
+						.then(
+							function(userRequires){
+								userRequires.forEach(function(userRequire){
+									if(userRequire.pushKey){
+										console.log("Sending alert");
+										notificationService().sendAlert(userRequire.pushKey);
+									}
+								});
+
+								res.json("Done");
+							},
+							function(erro){
+								res.status(500).json(erro);
+							}
+						);
+				},
+				function(erro){
+					res.status(500).json(erro);
+				}
+			);
+
+	}
 
 	//Updates the position of the bus
 	controller.updatePosition = function(req, res){
