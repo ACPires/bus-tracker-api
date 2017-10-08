@@ -26,13 +26,23 @@ wizard.getPrevision = function(routeStop){
   var time = totalDistance / metersPerSecond;
   var hours   = Math.floor(time / 3600);
   var minutes = Math.floor((time - (hours * 3600)) / 60);
-  var seconds = Math.trunc(time - (hours * 3600) - (minutes * 60));
 
   if (hours   < 10) {hours   = "0" + hours;}
   if (minutes < 10) {minutes = "0" + minutes;}
-  if (seconds < 10) {seconds = "0" + seconds;}
 
-  return hours + 'h' + minutes + 'm' + seconds + 's';
+  if (hours == 0) {
+    hours   = "";
+  }else{
+    hours = hours + "h"
+  }
+
+  if (minutes == 0) {
+    minutes = "Próximo";
+  }else{
+    minutes = minutes + "min";
+  }
+
+  return hours + minutes;
 }
 
 module.exports = wizard;
