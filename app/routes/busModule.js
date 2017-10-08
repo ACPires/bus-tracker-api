@@ -1,7 +1,7 @@
 module.exports = function(app) {
-	
+
 	var controller = app.controllers.busModule;
-	
+
 	app.route('/busmodule')
 		.get(controller.listBusModules)
 		.post(controller.updateBusModule);
@@ -12,4 +12,6 @@ module.exports = function(app) {
 		.get(controller.getModule);
 	app.route('/busmodule/:id/position')
 		.post(controller.updatePosition);
+	app.route('/busmodule/:id/arrive')
+		.get(controller.arrive);
 };

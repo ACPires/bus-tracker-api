@@ -16,9 +16,12 @@ module.exports = function(){
 			type: Date,
 			default: Date.now,
 			required: true
+		},
+		pushKey: {
+			type: String
 		}
 	}, { collection: 'userrequire'});
 
 	return mongoose.model('UserRequire', userrequire);
-	
+
 };
